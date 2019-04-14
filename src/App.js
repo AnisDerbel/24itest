@@ -1,28 +1,37 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import { Route,Switch } from 'react-router'
+import { HashRouter } from "react-router-dom";
+import Home from './pages/Home'
+import Search from './pages/Search'
+import AutoGrid from './pages/AssetDetail'
+import pink from '@material-ui/core/colors/pink';
 import './App.css';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
-class App extends Component {
-  render() {
+const App = () =>  { 
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <MuiThemeProvider theme={ theme }>
+        <HashRouter>
+          <Switch>
+            <Route exact  path='/' component={Home}/>
+            <Route exact  path='/search' component={Search}/>
+            <Route exact  path='/details/:type/:id' component={AutoGrid}/>
+          </Switch>
+        </HashRouter>
+        </MuiThemeProvider>
       </div>
     );
-  }
 }
 
 export default App;
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#000' },
+    secondary: pink
+  },
+  typography: {
+    useNextVariants: true,
+  }
+});
